@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caresync.controller.PatientDashboardController">
+    <left>
+        <VBox prefWidth="200.0" spacing="10.0" style="-fx-background-color: #F4F6F9; -fx-padding: 20 10;">
+            <children>
+                <Label style="-fx-text-fill: #0359A4; -fx-font-size: 22px; -fx-font-weight: bold; -fx-padding: 0 0 20 10;" text="CareSync" />
+                <Button maxWidth="Infinity" style="-fx-background-color: #DDE4F0; -fx-text-fill: #0359A4; -fx-background-radius: 5; -fx-padding: 10;" text="Book Appointment" />
+                <Button maxWidth="Infinity" style="-fx-background-color: white; -fx-text-fill: #666; -fx-background-radius: 5; -fx-padding: 10; -fx-border-color: #EEE;" text="View Status" />
+                <Region VBox.vgrow="ALWAYS" />
+                <Button onAction="#handleLogout" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #888;" text="Logout" />
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="20.0" style="-fx-padding: 30;">
+            <children>
+                <Label fx:id="welcomeLabel" style="-fx-font-size: 18px; -fx-text-fill: #333;" text="Welcome!" />
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="My Appointments" />
+                <TableView fx:id="appointmentTable" prefHeight="350.0">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" />
+                        <TableColumn fx:id="colDoctor" text="DOCTOR" />
+                        <TableColumn fx:id="colDate" text="DATE" />
+                        <TableColumn fx:id="colTime" text="TIME" />
+                        <TableColumn fx:id="colStatus" text="STATUS" />
+                    </columns>
+                </TableView>
+                <Button onAction="#openBookingModal" text="+ Book Appointment" 
+                        style="-fx-background-color: white; -fx-border-color: #0359A4; -fx-text-fill: #727272; -fx-border-radius: 5; -fx-padding: 8 15;" />
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

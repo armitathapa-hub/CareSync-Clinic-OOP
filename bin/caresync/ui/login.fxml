@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" prefHeight="650.0" prefWidth="500.0" style="-fx-background-color: #f4f7f6;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caresync.controller.LoginController">
+    <children>
+        <VBox alignment="CENTER" maxWidth="400.0" spacing="15.0"
+              style="-fx-background-color: white; -fx-padding: 40; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+
+            <Label text="CareSync" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #0359A4;" />
+            <Label text="Please login to continue" style="-fx-text-fill: #7f8c8d; -fx-padding: 0 0 5 0; -fx-font-size: 13px;" />
+
+            <VBox spacing="5.0" maxWidth="Infinity">
+                <Label text="Username" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
+                <TextField fx:id="usernameField" promptText="Enter your username"
+                           style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6; -fx-background-color: white;" />
+            </VBox>
+
+            <VBox spacing="5.0" maxWidth="Infinity">
+                <Label text="Password" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
+                <PasswordField fx:id="passwordField" promptText="Enter your password"
+                               style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6; -fx-background-color: white;" />
+            </VBox>
+
+            <VBox spacing="5.0" maxWidth="Infinity">
+                <Label text="Role" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
+                <ComboBox fx:id="roleBox" maxWidth="Infinity" promptText="Select Role">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Patient" />
+                            <String fx:value="Doctor" />
+                            <String fx:value="Admin" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </VBox>
+
+            <HBox spacing="15.0" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+                <children>
+                    <Button onAction="#goToRegister" text="REGISTER" prefWidth="140.0"
+                            style="-fx-background-color: transparent; -fx-text-fill: #7f8c8d; -fx-border-color: #ddd; -fx-border-radius: 8; -fx-padding: 10; -fx-font-weight: bold; -fx-cursor: hand;" />
+
+                    <Button onAction="#loginUser" text="LOGIN" prefWidth="140.0"
+                            style="-fx-background-color: #0359A4; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 8; -fx-cursor: hand;" />
+                </children>
+            </HBox>
+
+            <Label fx:id="messageLabel" wrapText="true" alignment="CENTER" maxWidth="Infinity" 
+                   style="-fx-padding: 5 0 0 0; -fx-font-size: 12px;" text=" " />
+        </VBox>
+    </children>
+</VBox>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox prefWidth="400.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10;"
+xmlns:fx="http://javafx.com/fxml/1" fx:controller="caresync.controller.BookingModalController">
+<padding>
+<Insets top="25" right="30" bottom="25" left="30"/>
+</padding>
+<children>
+<Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Book Now Appointment" />
+
+    <Label text="Select Doctor" />
+    <ComboBox fx:id="doctorSelect" maxWidth="Infinity" promptText="Select Doctor" />
+
+    <Label text="Date" />
+    <DatePicker fx:id="dateSelect" maxWidth="Infinity" />
+
+    <Label text="Time" />
+    <TextField fx:id="timeSelect" promptText="Select Time" />
+
+    <Label text="Health Brief Note" />
+    <TextArea fx:id="healthNote" prefHeight="80.0" promptText="Note" wrapText="true" />
+
+    <Button onAction="#handleBookingSubmit" maxWidth="Infinity"
+            style="-fx-background-color: #7DB9F8; -fx-text-fill: #0359A4; -fx-font-weight: bold; -fx-padding: 10;"
+            text="SUBMIT" />
+</children>
+
+</VBox>
