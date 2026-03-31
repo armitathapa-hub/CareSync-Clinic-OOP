@@ -2,6 +2,10 @@ package caresync.controller;
 
 import caresync.database.DBConnection;
 import caresync.database.UserSession;
+import caresync.model.Person;
+import caresync.model.AdminUser;
+import caresync.model.DoctorUser;
+import caresync.model.PatientUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +15,7 @@ import javafx.stage.Stage;
 import java.sql.*;
 
 public class LoginController {
-    
+
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private ComboBox<String> roleBox;
@@ -19,9 +23,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-       
         if (roleBox != null) {
-          
             if (roleBox.getItems().isEmpty()) {
                 roleBox.getItems().addAll("Admin", "Doctor", "Patient");
             }
@@ -49,11 +51,59 @@ public class LoginController {
 
             if (rs.next()) {
                 updateStatus("Login Successful!", "#0359A4");
-                caresync.database.UserSession.setLoggedInUserName(rs.getString("full_name"));
-                caresync.database.UserSession.setLoggedInUserId(rs.getInt("userId"));
+                
+                // Get user data
+                int userId = rs.getInt("userId");
+                String fullName = rs.getString("full_name");
+                String email = rs.getString("email") != null ? rs.getString("email") : "";
+                String specialization = rs.getString("specialization");
+                int experienceYears = rs.getInt("experience_years");
+                String dateOfBirth = rs.getString("date_of_birth");
+                String gender = rs.getString("gender");
+                
+                // Set session data
+                caresync.database.UserSession.setLoggedInUserName(fullName);
+                caresync.database.UserSession.setLoggedInUserId(userId);
                 caresync.database.UserSession.setLoggedInRole(role);
+                
+                // ========== OOP DEMONSTRATION: INHERITANCE & POLYMORPHISM ==========
+                // Creating Person objects based on role - This shows inheritance and polymorphism
+                Person loggedInPerson = null;
+                
+                if (role.equals("Admin")) {
+                    loggedInPerson = new AdminUser(userId, fullName, email);
+                    System.out.println("=== OOP DEMONSTRATION ===");
+                    System.out.println("Created AdminUser object using inheritance from Person");
+                    System.out.println("Role: " + loggedInPerson.getRole());
+                    System.out.println("Dashboard: " + loggedInPerson.getDashboardView());
+                } else if (role.equals("Doctor")) {
+                    loggedInPerson = new DoctorUser(userId, fullName, email, specialization, experienceYears);
+                    System.out.println("=== OOP DEMONSTRATION ===");
+                    System.out.println("Created DoctorUser object using inheritance from Person");
+                    System.out.println("Role: " + loggedInPerson.getRole());
+                    System.out.println("Dashboard: " + loggedInPerson.getDashboardView());
+                    // Cast to access doctor-specific methods
+                    if (loggedInPerson instanceof DoctorUser) {
+                        DoctorUser doctor = (DoctorUser) loggedInPerson;
+                        System.out.println("Specialization: " + doctor.getSpecialization());
+                        System.out.println("Experience: " + doctor.getExperienceYears() + " years");
+                    }
+                } else if (role.equals("Patient")) {
+                    loggedInPerson = new PatientUser(userId, fullName, email, dateOfBirth, gender);
+                    System.out.println("=== OOP DEMONSTRATION ===");
+                    System.out.println("Created PatientUser object using inheritance from Person");
+                    System.out.println("Role: " + loggedInPerson.getRole());
+                    System.out.println("Dashboard: " + loggedInPerson.getDashboardView());
+                    // Cast to access patient-specific methods
+                    if (loggedInPerson instanceof PatientUser) {
+                        PatientUser patient = (PatientUser) loggedInPerson;
+                        System.out.println("Date of Birth: " + patient.getDateOfBirth());
+                        System.out.println("Gender: " + patient.getGender());
+                    }
+                }
+                // ========== END OOP DEMONSTRATION ==========
 
-             
+                // Load dashboard
                 try {
                     String fxmlFile = "";
                     if (role.equals("Admin")) {
@@ -65,8 +115,7 @@ public class LoginController {
                     }
 
                     System.out.println("Loading: " + fxmlFile);
-                    
-                  
+
                     if (getClass().getResource(fxmlFile) == null) {
                         updateStatus("ERROR: Cannot find " + fxmlFile, "#e74c3c");
                         System.err.println("FXML file not found: " + fxmlFile);
@@ -97,17 +146,17 @@ public class LoginController {
     public void goToRegister() {
         try {
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            
+
             // Check if register.fxml exists
             if (getClass().getResource("/caresync/ui/register.fxml") == null) {
                 updateStatus("Register FXML not found!", "#e74c3c");
                 return;
             }
-            
+
             Parent root = FXMLLoader.load(getClass().getResource("/caresync/ui/register.fxml"));
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
-            
+
         } catch (Exception e) {
             updateStatus("Error loading register page: " + e.getMessage(), "#e74c3c");
             e.printStackTrace();

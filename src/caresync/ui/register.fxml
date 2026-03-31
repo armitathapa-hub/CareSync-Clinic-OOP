@@ -1,72 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.*?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER" prefHeight="800.0" prefWidth="650.0" style="-fx-background-color: #f4f7f6; -fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caresync.controller.RegisterController">
-<VBox alignment="TOP_LEFT" maxWidth="580.0" spacing="20.0" style="-fx-background-color: white; -fx-padding: 40; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+<HBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="caresync.controller.RegisterController"
+      prefHeight="680.0" prefWidth="950.0">
 
-    <VBox alignment="CENTER" spacing="5.0">
-        <Label text="CareSync" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #0359A4;" />
-        <Label text="Create your account" style="-fx-text-fill: #7f8c8d; -fx-font-size: 14px;" />
+    <!-- Left Branding Panel -->
+    <VBox prefWidth="320.0" alignment="CENTER" spacing="16"
+          style="-fx-background-color: #0B2E5E;">
+        <padding><Insets top="50" right="40" bottom="50" left="40"/></padding>
+
+        <Label text="🏥" style="-fx-font-size: 48px;" />
+        <Label text="CareSync"
+               style="-fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: white;" />
+        <Label text="Clinic Appointment System"
+               style="-fx-font-size: 13px; -fx-text-fill: #90aecb; -fx-font-style: italic;" />
+
+        <Region prefHeight="30" />
+
+        <Label text="Join our healthcare platform and get access to top doctors across Nepal."
+               wrapText="true" textAlignment="CENTER"
+               style="-fx-text-fill: #cde4f5; -fx-font-size: 13px;" maxWidth="240" />
+
+        <Region VBox.vgrow="ALWAYS" />
+        <Label text="© 2025 CareSync"
+               style="-fx-text-fill: #4a6f99; -fx-font-size: 11px;" />
     </VBox>
 
-    <VBox spacing="5.0" maxWidth="Infinity">
-        <Label text="Register As" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
-        <ComboBox fx:id="roleBox" onAction="#handleRoleSelection" maxWidth="Infinity" promptText="Select Role"
-                  style="-fx-background-radius: 6; -fx-padding: 6; -fx-border-color: #0359A4; -fx-border-radius: 6; -fx-background-color: white;">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Patient" /><String fx:value="Doctor" />
-                </FXCollections>
-            </items>
-        </ComboBox>
-    </VBox>
+    <!-- Right Registration Form -->
+    <ScrollPane HBox.hgrow="ALWAYS" fitToWidth="true"
+                style="-fx-background-color: #f0f4f8; -fx-background: #f0f4f8;">
+        <VBox alignment="TOP_CENTER" style="-fx-background-color: #f0f4f8;">
+            <padding><Insets top="35" right="50" bottom="35" left="50"/></padding>
 
-    <GridPane hgap="20.0" vgap="15.0">
-        <columnConstraints>
-            <ColumnConstraints percentWidth="50" />
-            <ColumnConstraints percentWidth="50" />
-        </columnConstraints>
-        <children>
-            <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                <Label text="Full Name" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
-                <TextField fx:id="nameField" promptText="Enter your full name" style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6;" />
-            </VBox>
-            <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                <Label text="Email Address" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
-                <TextField fx:id="emailField" promptText="Enter your email" style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6;" />
-            </VBox>
-            <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <Label text="Phone Number" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
-                <TextField fx:id="phoneField" promptText="Enter phone number" style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6;" />
-            </VBox>
-            <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <Label text="Username" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
-                <TextField fx:id="userField" promptText="Enter your username" style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6;" />
-            </VBox>
-            <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                <Label text="Password" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
-                <PasswordField fx:id="passField" promptText="Enter password" style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6;" />
-            </VBox>
-            <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                <Label text="Confirm Password" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
-                <PasswordField fx:id="confirmPassField" promptText="Confirm your password" style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6;" />
-            </VBox>
-        </children>
-    </GridPane>
+            <VBox spacing="20"
+                  style="-fx-background-color: white; -fx-padding: 40;
+                         -fx-background-radius: 16;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 18, 0, 0, 6);">
 
-    <VBox fx:id="dynamicContentContainer" spacing="15.0" />
+                <!-- Header -->
+                <VBox alignment="CENTER" spacing="4">
+                    <Label text="Create Your Account"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0B2E5E;" />
+                    <Label text="Fill in the details below to register"
+                           style="-fx-text-fill: #7f8c8d; -fx-font-size: 13px;" />
+                </VBox>
 
-    <HBox spacing="15.0" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
-        <children>
-            <Button onAction="#backToLogin" text="CANCEL" prefWidth="150.0"
-                    style="-fx-background-color: transparent; -fx-text-fill: #7f8c8d; -fx-border-color: #ddd; -fx-border-radius: 8; -fx-padding: 12; -fx-font-weight: bold; -fx-cursor: hand;" />
-            <Button onAction="#registerUser" text="REGISTER" prefWidth="150.0"
-                    style="-fx-background-color: #0359A4; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12; -fx-background-radius: 8; -fx-cursor: hand;" />
-        </children>
-    </HBox>
-</VBox>
+                <!-- Role Selection -->
+                <VBox spacing="6">
+                    <Label text="Register As *"
+                           style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                    <ComboBox fx:id="roleBox" onAction="#handleRoleSelection"
+                              maxWidth="Infinity" promptText="Select Role (Patient or Doctor)"
+                              style="-fx-background-radius: 8; -fx-border-color: #0B2E5E;
+                                     -fx-border-radius: 8; -fx-background-color: #fafdff;
+                                     -fx-font-size: 13px;">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Patient" />
+                                <String fx:value="Doctor" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </VBox>
 
-</VBox>
+                <!-- Main Fields Grid -->
+                <GridPane hgap="18" vgap="14">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
+
+                    <!-- Full Name -->
+                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Full Name *"
+                               style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                        <TextField fx:id="nameField" promptText="Enter your full name"
+                                   style="-fx-background-radius: 8; -fx-padding: 10;
+                                          -fx-border-color: #dde4ee; -fx-border-radius: 8;
+                                          -fx-background-color: #fafdff; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <!-- Email -->
+                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Email Address"
+                               style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                        <TextField fx:id="emailField" promptText="Enter your email"
+                                   style="-fx-background-radius: 8; -fx-padding: 10;
+                                          -fx-border-color: #dde4ee; -fx-border-radius: 8;
+                                          -fx-background-color: #fafdff; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <!-- Phone -->
+                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label text="Phone Number"
+                               style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                        <TextField fx:id="phoneField" promptText="e.g. 9800000001"
+                                   style="-fx-background-radius: 8; -fx-padding: 10;
+                                          -fx-border-color: #dde4ee; -fx-border-radius: 8;
+                                          -fx-background-color: #fafdff; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <!-- Username -->
+                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="Username *"
+                               style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                        <TextField fx:id="userField" promptText="Choose a username"
+                                   style="-fx-background-radius: 8; -fx-padding: 10;
+                                          -fx-border-color: #dde4ee; -fx-border-radius: 8;
+                                          -fx-background-color: #fafdff; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <!-- Password -->
+                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Label text="Password *"
+                               style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                        <PasswordField fx:id="passField" promptText="Create a password"
+                                       style="-fx-background-radius: 8; -fx-padding: 10;
+                                              -fx-border-color: #dde4ee; -fx-border-radius: 8;
+                                              -fx-background-color: #fafdff; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <!-- Confirm Password -->
+                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label text="Confirm Password *"
+                               style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                        <PasswordField fx:id="confirmPassField" promptText="Repeat your password"
+                                       style="-fx-background-radius: 8; -fx-padding: 10;
+                                              -fx-border-color: #dde4ee; -fx-border-radius: 8;
+                                              -fx-background-color: #fafdff; -fx-font-size: 13px;" />
+                    </VBox>
+                </GridPane>
+
+                <!-- Dynamic Role Fields (Doctor/Patient) -->
+                <VBox fx:id="dynamicContentContainer" spacing="14" />
+
+                <!-- Required fields note -->
+                <Label text="* Required fields"
+                       style="-fx-text-fill: #e74c3c; -fx-font-size: 11px;" />
+
+                <!-- Buttons -->
+                <HBox spacing="14" alignment="CENTER">
+                    <Button onAction="#backToLogin" text="← BACK TO LOGIN" prefWidth="170.0"
+                            style="-fx-background-color: white; -fx-text-fill: #555;
+                                   -fx-border-color: #ccc; -fx-border-radius: 8;
+                                   -fx-background-radius: 8; -fx-padding: 11;
+                                   -fx-font-weight: bold; -fx-font-size: 13px; -fx-cursor: hand;" />
+                    <Button onAction="#registerUser" text="CREATE ACCOUNT" prefWidth="170.0"
+                            style="-fx-background-color: #0B2E5E; -fx-text-fill: white;
+                                   -fx-font-weight: bold; -fx-padding: 11;
+                                   -fx-background-radius: 8; -fx-font-size: 13px; -fx-cursor: hand;" />
+                </HBox>
+
+            </VBox>
+        </VBox>
+    </ScrollPane>
+
+</HBox>

@@ -2,33 +2,91 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.collections.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER" prefHeight="650.0" prefWidth="500.0" style="-fx-background-color: #f4f7f6;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caresync.controller.LoginController">
-    <children>
-        <VBox alignment="CENTER" maxWidth="400.0" spacing="15.0"
-              style="-fx-background-color: white; -fx-padding: 40; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+<HBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="caresync.controller.LoginController"
+      prefHeight="620.0" prefWidth="900.0">
 
-            <Label text="CareSync" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #0359A4;" />
-            <Label text="Please login to continue" style="-fx-text-fill: #7f8c8d; -fx-padding: 0 0 5 0; -fx-font-size: 13px;" />
+    <!-- Left Panel: Branding -->
+    <VBox prefWidth="420.0" alignment="CENTER" spacing="18"
+          style="-fx-background-color: #0B2E5E;">
+        <padding><Insets top="60" right="50" bottom="60" left="50"/></padding>
 
-            <VBox spacing="5.0" maxWidth="Infinity">
-                <Label text="Username" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
+        <Label text="🏥"
+               style="-fx-font-size: 52px;" />
+
+        <Label text="CareSync"
+               style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: white;" />
+
+        <Label text="Clinic Appointment System"
+               style="-fx-font-size: 14px; -fx-text-fill: #90aecb; -fx-font-style: italic;" />
+
+        <Region prefHeight="20" />
+
+        <VBox spacing="14" maxWidth="300">
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="✔" style="-fx-text-fill: #4fc3f7; -fx-font-size: 14px;" />
+                <Label text="Book appointments with ease"
+                       style="-fx-text-fill: #cde4f5; -fx-font-size: 13px;" />
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="✔" style="-fx-text-fill: #4fc3f7; -fx-font-size: 14px;" />
+                <Label text="Track your health records"
+                       style="-fx-text-fill: #cde4f5; -fx-font-size: 13px;" />
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="✔" style="-fx-text-fill: #4fc3f7; -fx-font-size: 14px;" />
+                <Label text="Connect doctors and patients"
+                       style="-fx-text-fill: #cde4f5; -fx-font-size: 13px;" />
+            </HBox>
+        </VBox>
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <Label text="© 2025 CareSync. All rights reserved."
+               style="-fx-text-fill: #4a6f99; -fx-font-size: 11px;" />
+    </VBox>
+
+    <!-- Right Panel: Login Form -->
+    <VBox alignment="CENTER" HBox.hgrow="ALWAYS"
+          style="-fx-background-color: #f0f4f8;">
+        <padding><Insets top="50" right="60" bottom="50" left="60"/></padding>
+
+        <VBox alignment="CENTER" spacing="22"
+              style="-fx-background-color: white; -fx-padding: 45; -fx-background-radius: 16;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 18, 0, 0, 6);">
+
+            <Label text="Welcome Back 👋"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0B2E5E;" />
+            <Label text="Sign in to your CareSync account"
+                   style="-fx-text-fill: #7f8c8d; -fx-font-size: 13px;" />
+
+            <VBox spacing="6" maxWidth="Infinity">
+                <Label text="Username" style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
                 <TextField fx:id="usernameField" promptText="Enter your username"
-                           style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6; -fx-background-color: white;" />
+                           style="-fx-background-radius: 8; -fx-padding: 11; -fx-border-color: #d0dce8;
+                                  -fx-border-radius: 8; -fx-background-color: #fafdff;
+                                  -fx-font-size: 13px;" />
             </VBox>
 
-            <VBox spacing="5.0" maxWidth="Infinity">
-                <Label text="Password" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
+            <VBox spacing="6" maxWidth="Infinity">
+                <Label text="Password" style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
                 <PasswordField fx:id="passwordField" promptText="Enter your password"
-                               style="-fx-background-radius: 6; -fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 6; -fx-background-color: white;" />
+                               style="-fx-background-radius: 8; -fx-padding: 11; -fx-border-color: #d0dce8;
+                                      -fx-border-radius: 8; -fx-background-color: #fafdff;
+                                      -fx-font-size: 13px;" />
             </VBox>
 
-            <VBox spacing="5.0" maxWidth="Infinity">
-                <Label text="Role" style="-fx-text-fill: #555; -fx-font-size: 12px;" />
-                <ComboBox fx:id="roleBox" maxWidth="Infinity" promptText="Select Role">
+            <VBox spacing="6" maxWidth="Infinity">
+                <Label text="Role" style="-fx-text-fill: #444; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                <ComboBox fx:id="roleBox" maxWidth="Infinity" promptText="Select your role"
+                          style="-fx-background-radius: 8; -fx-border-color: #d0dce8;
+                                 -fx-border-radius: 8; -fx-background-color: #fafdff;
+                                 -fx-font-size: 13px;">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Patient" />
@@ -39,18 +97,22 @@
                 </ComboBox>
             </VBox>
 
-            <HBox spacing="15.0" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
-                <children>
-                    <Button onAction="#goToRegister" text="REGISTER" prefWidth="140.0"
-                            style="-fx-background-color: transparent; -fx-text-fill: #7f8c8d; -fx-border-color: #ddd; -fx-border-radius: 8; -fx-padding: 10; -fx-font-weight: bold; -fx-cursor: hand;" />
+            <Label fx:id="messageLabel" wrapText="true" alignment="CENTER" maxWidth="Infinity"
+                   style="-fx-font-size: 12px; -fx-padding: 2 0;" text=" " />
 
-                    <Button onAction="#loginUser" text="LOGIN" prefWidth="140.0"
-                            style="-fx-background-color: #0359A4; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 8; -fx-cursor: hand;" />
-                </children>
+            <HBox spacing="12" alignment="CENTER" maxWidth="Infinity">
+                <Button onAction="#goToRegister" text="REGISTER" prefWidth="145.0"
+                        style="-fx-background-color: white; -fx-text-fill: #0B2E5E;
+                               -fx-border-color: #0B2E5E; -fx-border-radius: 8;
+                               -fx-background-radius: 8; -fx-padding: 11;
+                               -fx-font-weight: bold; -fx-font-size: 13px; -fx-cursor: hand;" />
+                <Button onAction="#loginUser" text="LOGIN" prefWidth="145.0"
+                        style="-fx-background-color: #0B2E5E; -fx-text-fill: white;
+                               -fx-font-weight: bold; -fx-padding: 11;
+                               -fx-background-radius: 8; -fx-font-size: 13px; -fx-cursor: hand;" />
             </HBox>
 
-            <Label fx:id="messageLabel" wrapText="true" alignment="CENTER" maxWidth="Infinity" 
-                   style="-fx-padding: 5 0 0 0; -fx-font-size: 12px;" text=" " />
         </VBox>
-    </children>
-</VBox>
+    </VBox>
+
+</HBox>

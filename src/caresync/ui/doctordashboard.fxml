@@ -4,71 +4,151 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #f4f7f6;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="caresync.controller.DoctorDashboardController">
-    
-    <left>
-        <VBox prefWidth="250.0" spacing="10.0" style="-fx-background-color: #2c3e50; -fx-padding: 20 10;">
-            <children>
-                <Label style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold; -fx-padding: 0 0 20 10;" text="CareSync" />
-                
-                <Label style="-fx-text-fill: #95a5a6; -fx-font-size: 12px; -fx-padding: 10 0 0 10;" text="DOCTOR MENU" />
-                
-                <Button maxWidth="Infinity" onAction="#handleRefresh"
-                        style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 12; -fx-alignment: CENTER-LEFT;"
-                        text="Refresh" />
-                
-                <Button maxWidth="Infinity" onAction="#handleAssignedAppointment"
-                        style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 12; -fx-alignment: CENTER-LEFT;"
-                        text="Assigned Appointment" />
-                
-                <Button maxWidth="Infinity" onAction="#handleDailySchedules"
-                        style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 12; -fx-alignment: CENTER-LEFT;"
-                        text="Daily Schedules" />
+<BorderPane prefHeight="700.0" prefWidth="1050.0"
+            style="-fx-background-color: #f0f4f8;"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="caresync.controller.DoctorDashboardController">
 
-                <Region VBox.vgrow="ALWAYS" />
-                
+    <!-- Sidebar -->
+    <left>
+        <VBox prefWidth="235.0" spacing="6.0"
+              style="-fx-background-color: #0B2E5E; -fx-padding: 0;">
+
+            <!-- Logo Area -->
+            <VBox alignment="CENTER" spacing="4"
+                  style="-fx-background-color: #0a2550; -fx-padding: 28 16 22 16;">
+                <Label text="🏥" style="-fx-font-size: 32px;" />
+                <Label text="CareSync"
+                       style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" />
+                <Label text="Doctor Portal"
+                       style="-fx-text-fill: #7fafd4; -fx-font-size: 11px;" />
+            </VBox>
+
+            <VBox spacing="4" style="-fx-padding: 18 10 10 10;">
+                <Label text="DOCTOR MENU"
+                       style="-fx-text-fill: #5a8ab0; -fx-font-size: 10px;
+                              -fx-font-weight: bold; -fx-padding: 0 0 6 6;" />
+
+                <Button maxWidth="Infinity" onAction="#handleRefresh"
+                        style="-fx-background-color: #1a4a7a; -fx-text-fill: white;
+                               -fx-background-radius: 8; -fx-padding: 13 16;
+                               -fx-alignment: CENTER-LEFT; -fx-font-size: 13px; -fx-cursor: hand;"
+                        text="Refresh Dashboard" />
+
+                <Button maxWidth="Infinity" onAction="#handleAssignedAppointment"
+                        style="-fx-background-color: transparent; -fx-text-fill: #b8d4ee;
+                               -fx-background-radius: 8; -fx-padding: 13 16;
+                               -fx-alignment: CENTER-LEFT; -fx-font-size: 13px; -fx-cursor: hand;"
+                        text="Today's Appointments" />
+
+                <Button maxWidth="Infinity" onAction="#handleDailySchedules"
+                        style="-fx-background-color: transparent; -fx-text-fill: #b8d4ee;
+                               -fx-background-radius: 8; -fx-padding: 13 16;
+                               -fx-alignment: CENTER-LEFT; -fx-font-size: 13px; -fx-cursor: hand;"
+                        text="Weekly Schedule" />
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <VBox style="-fx-padding: 10 10 20 10;">
                 <Button onAction="#handleLogout" maxWidth="Infinity"
-                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 12; -fx-alignment: CENTER-LEFT;"
+                        style="-fx-background-color: #c0392b; -fx-text-fill: white;
+                               -fx-background-radius: 8; -fx-padding: 12 16;
+                               -fx-alignment: CENTER-LEFT; -fx-font-size: 13px;
+                               -fx-font-weight: bold; -fx-cursor: hand;"
                         text="Logout" />
-            </children>
+            </VBox>
         </VBox>
     </left>
-    
+
+    <!-- Main Content -->
     <center>
-        <VBox spacing="20.0" style="-fx-padding: 30;">
-            <children>
-                <Label fx:id="welcomeLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Welcome, Doctor!" />
-                
-                <HBox spacing="20.0">
-                    <VBox spacing="10.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS">
-                        <Label text="Today's Appointments" style="-fx-text-fill: #7f8c8d;" />
-                        <Label fx:id="todayAppointments" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #3498db;" />
-                    </VBox>
-                    
-                    <VBox spacing="10.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS">
-                        <Label text="Pending Approvals" style="-fx-text-fill: #7f8c8d;" />
-                        <Label fx:id="pendingAppointments" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #f39c12;" />
-                    </VBox>
-                    
-                    <VBox spacing="10.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;" HBox.hgrow="ALWAYS">
-                        <Label text="Total Patients" style="-fx-text-fill: #7f8c8d;" />
-                        <Label fx:id="totalPatients" text="0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #27ae60;" />
-                    </VBox>
+        <VBox spacing="22.0" style="-fx-padding: 32 36 32 36;">
+
+            <!-- Header -->
+            <VBox spacing="3">
+                <Label fx:id="welcomeLabel"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0B2E5E;"
+                       text="Welcome, Doctor!" />
+                <Label text="Here is your appointment summary for today."
+                       style="-fx-text-fill: #7f8c8d; -fx-font-size: 13px;" />
+            </VBox>
+
+            <Separator style="-fx-background-color: #dde4ee;" />
+
+            <!-- Stats Cards -->
+            <HBox spacing="18.0" alignment="CENTER">
+
+                <VBox spacing="8.0" alignment="CENTER_LEFT"
+                      style="-fx-background-color: white; -fx-padding: 22 20;
+                             -fx-background-radius: 12;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, 3);"
+                      HBox.hgrow="ALWAYS">
+                    <Label text="Today's Appointments"
+                           style="-fx-text-fill: #7f8c8d; -fx-font-size: 12px;" />
+                    <Label fx:id="todayAppointments" text="0"
+                           style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #2980b9;" />
+                    <Label text="Scheduled today"
+                           style="-fx-text-fill: #aab4c2; -fx-font-size: 11px;" />
+                </VBox>
+
+                <VBox spacing="8.0" alignment="CENTER_LEFT"
+                      style="-fx-background-color: white; -fx-padding: 22 20;
+                             -fx-background-radius: 12;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, 3);"
+                      HBox.hgrow="ALWAYS">
+                    <Label text="Pending Approvals"
+                           style="-fx-text-fill: #7f8c8d; -fx-font-size: 12px;" />
+                    <Label fx:id="pendingAppointments" text="0"
+                           style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #e67e22;" />
+                    <Label text="Awaiting review"
+                           style="-fx-text-fill: #aab4c2; -fx-font-size: 11px;" />
+                </VBox>
+
+                <VBox spacing="8.0" alignment="CENTER_LEFT"
+                      style="-fx-background-color: white; -fx-padding: 22 20;
+                             -fx-background-radius: 12;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, 3);"
+                      HBox.hgrow="ALWAYS">
+                    <Label text="Total Patients"
+                           style="-fx-text-fill: #7f8c8d; -fx-font-size: 12px;" />
+                    <Label fx:id="totalPatients" text="0"
+                           style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #27ae60;" />
+                    <Label text="Unique patients seen"
+                           style="-fx-text-fill: #aab4c2; -fx-font-size: 11px;" />
+                </VBox>
+
+            </HBox>
+
+            <!-- Appointments Table -->
+            <VBox spacing="10">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="My Appointments"
+                           style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
+                           HBox.hgrow="ALWAYS"/>
+                    <Button onAction="#handleRefresh"
+                            style="-fx-background-color: #0B2E5E; -fx-text-fill: white;
+                                   -fx-background-radius: 6; -fx-padding: 7 14;
+                                   -fx-font-size: 12px; -fx-cursor: hand;"
+                            text="↻  Refresh" />
                 </HBox>
-                
-                <Label text="My Appointments" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-                
-                <TableView fx:id="appointmentsTable" prefHeight="400.0">
+
+                <TableView fx:id="appointmentsTable" prefHeight="340.0"
+                           style="-fx-background-radius: 10; -fx-border-radius: 10;
+                                  -fx-border-color: #dde4ee; -fx-background-color: white;">
                     <columns>
                         <TableColumn fx:id="colId" text="ID" prefWidth="50" />
-                        <TableColumn fx:id="colPatient" text="Patient" prefWidth="150" />
-                        <TableColumn fx:id="colDate" text="Date" prefWidth="100" />
+                        <TableColumn fx:id="colPatient" text="Patient" prefWidth="160" />
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="110" />
                         <TableColumn fx:id="colTime" text="Time" prefWidth="80" />
-                        <TableColumn fx:id="colStatus" text="Status" prefWidth="100" />
-                        <TableColumn fx:id="colDescription" text="Description" prefWidth="200" />
+                        <TableColumn fx:id="colStatus" text="Status" prefWidth="110" />
+                        <TableColumn fx:id="colDescription" text="Description" prefWidth="210" />
+                        <TableColumn fx:id="colAction" text="Action" prefWidth="110" />
                     </columns>
                 </TableView>
-            </children>
+            </VBox>
+
         </VBox>
     </center>
+
 </BorderPane>
