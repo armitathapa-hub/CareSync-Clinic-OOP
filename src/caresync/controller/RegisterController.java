@@ -197,10 +197,32 @@ public class RegisterController {
             return false;
         }
 
-        // Phone number validation (optional but if provided must be numeric, 10 digits)
-        if (!phone.isEmpty() && !phone.matches("^[0-9]{10,15}$")) {
+        // Required: phone number
+        if (phone.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Missing Field", "Phone Number is required.");
+            return false;
+        }
+
+        // Phone number format validation (10-15 digits, no spaces or symbols)
+        if (!phone.matches("^[0-9]{10,15}$")) {
             showAlert(Alert.AlertType.WARNING, "Invalid Phone Number",
                     "Phone number must be 10–15 digits with no spaces or symbols.");
+            return false;
+        }
+
+        // Phone number duplication check
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(
+                     "SELECT COUNT(*) FROM users WHERE phone_number = ?")) {
+            pst.setString(1, phone);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                showAlert(Alert.AlertType.WARNING, "Phone Number Taken",
+                        "The phone number '" + phone + "' is already registered.\nPlease use a different phone number.");
+                return false;
+            }
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Could not verify phone number: " + e.getMessage());
             return false;
         }
 

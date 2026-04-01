@@ -438,13 +438,13 @@ public class AdminDashboardController {
             grid.add(usernameField, 1, row++);
             grid.add(new Label("Password:*"), 0, row);
             grid.add(passwordField, 1, row++);
-            grid.add(new Label("Email:"), 0, row);
+            grid.add(new Label("Email:*"), 0, row);
             grid.add(emailField, 1, row++);
-            grid.add(new Label("Phone:"), 0, row);
+            grid.add(new Label("Phone:*"), 0, row);
             grid.add(phoneField, 1, row++);
             
             if (role.equals("Doctor")) {
-                grid.add(new Label("Specialization:"), 0, row);
+                grid.add(new Label("Specialization:*"), 0, row);
                 grid.add(specializationField, 1, row++);
             }
             
@@ -457,26 +457,88 @@ public class AdminDashboardController {
             grid.add(buttonBox, 0, row, 2, 1);
             
             saveBtn.setOnAction(e -> {
-                if (nameField.getText().trim().isEmpty()) {
-                    showAlert("Error", "Full Name is required!");
+                String name     = nameField.getText().trim();
+                String username = usernameField.getText().trim();
+                String password = passwordField.getText();
+                String email    = emailField.getText().trim();
+                String phone    = phoneField.getText().trim();
+
+                // Required: Full Name
+                if (name.isEmpty()) {
+                    showAlert("Missing Field", "Full Name is required!");
                     return;
                 }
-                if (usernameField.getText().trim().isEmpty()) {
-                    showAlert("Error", "Username is required!");
+
+                // Required: Username (min 4 chars)
+                if (username.isEmpty()) {
+                    showAlert("Missing Field", "Username is required!");
                     return;
                 }
-                if (passwordField.getText().trim().isEmpty()) {
-                    showAlert("Error", "Password is required!");
+                if (username.length() < 4) {
+                    showAlert("Invalid Username", "Username must be at least 4 characters long.");
                     return;
                 }
-                
+
+                // Required: Password (min 6 chars)
+                if (password.isEmpty()) {
+                    showAlert("Missing Field", "Password is required!");
+                    return;
+                }
+                if (password.length() < 6) {
+                    showAlert("Weak Password", "Password must be at least 6 characters long.");
+                    return;
+                }
+
+                // Required: Email (must be valid format)
+                if (email.isEmpty()) {
+                    showAlert("Missing Field", "Email is required!");
+                    return;
+                }
+                if (!email.matches("^[\\w._%+\\-]+@[\\w.\\-]+\\.[a-zA-Z]{2,}$")) {
+                    showAlert("Invalid Email", "Please enter a valid email address.\nExample: name@email.com");
+                    return;
+                }
+
+                // Required: Phone (10-15 digits)
+                if (phone.isEmpty()) {
+                    showAlert("Missing Field", "Phone Number is required!");
+                    return;
+                }
+                if (!phone.matches("^[0-9]{10,15}$")) {
+                    showAlert("Invalid Phone Number", "Phone number must be 10–15 digits with no spaces or symbols.");
+                    return;
+                }
+
+                // Doctor: Specialization required
+                if (role.equals("Doctor") && specializationField != null && specializationField.getText().trim().isEmpty()) {
+                    showAlert("Missing Field", "Specialization is required for Doctors!");
+                    return;
+                }
+
+                // Duplicate username check
                 String checkSql = "SELECT COUNT(*) FROM users WHERE username = ?";
                 try (Connection conn = DBConnection.getConnection();
                      PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
-                    checkStmt.setString(1, usernameField.getText().trim());
+                    checkStmt.setString(1, username);
                     ResultSet rs = checkStmt.executeQuery();
                     if (rs.next() && rs.getInt(1) > 0) {
-                        showAlert("Error", "Username already exists!");
+                        showAlert("Username Taken", "The username '" + username + "' already exists!\nPlease choose a different username.");
+                        return;
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    showAlert("Error", "Database error: " + ex.getMessage());
+                    return;
+                }
+
+                // Duplicate phone check
+                String phoneCheckSql = "SELECT COUNT(*) FROM users WHERE phone_number = ?";
+                try (Connection conn = DBConnection.getConnection();
+                     PreparedStatement checkStmt = conn.prepareStatement(phoneCheckSql)) {
+                    checkStmt.setString(1, phone);
+                    ResultSet rs = checkStmt.executeQuery();
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        showAlert("Phone Number Taken", "The phone number '" + phone + "' is already registered.\nPlease use a different phone number.");
                         return;
                     }
                 } catch (SQLException ex) {
@@ -489,12 +551,12 @@ public class AdminDashboardController {
                 try (Connection conn = DBConnection.getConnection();
                      PreparedStatement pst = conn.prepareStatement(sql)) {
                     
-                    pst.setString(1, usernameField.getText().trim());
-                    pst.setString(2, passwordField.getText());
+                    pst.setString(1, username);
+                    pst.setString(2, password);
                     pst.setString(3, role);
-                    pst.setString(4, nameField.getText().trim());
-                    pst.setString(5, emailField.getText().trim().isEmpty() ? null : emailField.getText().trim());
-                    pst.setString(6, phoneField.getText().trim().isEmpty() ? null : phoneField.getText().trim());
+                    pst.setString(4, name);
+                    pst.setString(5, email);
+                    pst.setString(6, phone);
                     
                     if (role.equals("Doctor") && specializationField != null) {
                         pst.setString(7, specializationField.getText().trim().isEmpty() ? null : specializationField.getText().trim());

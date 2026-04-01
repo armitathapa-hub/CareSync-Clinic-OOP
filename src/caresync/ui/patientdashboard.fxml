@@ -35,7 +35,7 @@
                                -fx-background-radius: 8; -fx-padding: 13 16;
                                -fx-alignment: CENTER-LEFT; -fx-font-size: 13px;
                                -fx-font-weight: bold; -fx-cursor: hand;"
-                        text="➕  Book Appointment" />
+                        text="Book Appointment" />
 
                 <Button fx:id="viewStatusBtn" maxWidth="Infinity"
                         onAction="#viewAppointmentStatus"
